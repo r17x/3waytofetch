@@ -69,6 +69,7 @@ class App extends Component {
    * @param {e} Object as Event 
    */
   handleClick(e){
+      console.log("Tombol Ter-Trigerred :D");
       this.setState({
         isLoad: ! this.state.isLoad  
       })
@@ -85,7 +86,7 @@ class App extends Component {
         <p className="App-intro">
             <button onClick={this.handleClick} children="Klik Untuk ComponentA"/>
         </p>
-        { this.state.isLoad && <ComponentA/> }
+        { this.state.isLoad && <ComponentA/> && console.log("Component A Dimuat") }
       </div>
     )
   }
