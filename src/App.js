@@ -19,6 +19,7 @@ class App extends Component {
   constructor(props){
     super(props)
     this.handleClick = this.handleClick.bind(this) 
+    console.log(`Constructor : ${JSON.stringify(this.state)}`)
   }
   
   /**
@@ -49,6 +50,7 @@ class App extends Component {
         data: await AsyncFetch(url)
     }) 
 
+    console.log(`Async ComponentDidmount lifecycle: ${JSON.stringify(this.state)}`)
   }
 
   /**
@@ -76,7 +78,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(`Render lifecycle: ${JSON.stringify(this.state)}`)
     return (
       <div className="App">
         <header className="App-header">
@@ -86,7 +87,7 @@ class App extends Component {
         <p className="App-intro">
             <button onClick={this.handleClick} children="Klik Untuk ComponentA"/>
         </p>
-        { this.state.isLoad && <ComponentA/> && console.log("Component A Dimuat") }
+        { this.state.isLoad && <ComponentA/>}
       </div>
     )
   }

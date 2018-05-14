@@ -15,7 +15,9 @@ export default class ComponentA extends Component {
     }
 
     async componentWillMount(){
+        console.log("Component A Will Mount")
         const url = this.state.url  
+        console.log("SetState with AsyncFetch")
         await this.setStateAsync({
             isLoad: true ,
            ...await AsyncFetch(url)
