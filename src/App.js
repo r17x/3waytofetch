@@ -7,20 +7,38 @@ class App extends Component {
   state = {
     data: [] 
   }
-  componentDidMount(){
+  
+  /**
+   * async componentDidMount() 
+   * merubah function componentDidMount menjadi asynchronous
+   * untuk mengenali dan dapat menggunakan fungsi await
+   */
+  async componentDidMount(){
     console.log("ComponentDidmount Sedang Berjalan")
-    const urlFetch = fetch("https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fmedium.com%2Ffeed%2Fwwwid") 
-    console.log("Fetch data sedang berjalan") 
-    urlFetch.then(res => {
-        if( res.status === 200 )
-            return res.json()
-    }).then( resJson => {
-        console.log("Mengatur State.data")
-        this.setState({
-            data: resJson 
-        })
-    })
+    console.log("Await Fetch")
+    const urlFetch = await fetch("https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fmedium.com%2Ffeed%2Fwwwid") 
+    
+    /**
+     * jika HTTP.satus bernilai 200 dan 'json' ada pada object
+     * urlFetch maka setState untuk data menggunakan setStateAsync 
+     * dengan nilai await urlFetch.json() 
+     */
+    console.log("execute: if urlFetch.status === 200 && 'json' in urlFetch")
+    console.log("Jika True, maka setState data dengan nilai await urlFetch.json()")
+    if ( urlFetch.status === 200 && 'json' in urlFetch ){
+        console.log("Dan hasilnya adalah true maka setState dilakukan")
+        this.setStateAsync({
+            data: await urlFetch.json()  
+        }) 
+    }
   }
+
+  setStateAsync(state){
+    return new Promise( resolve => {
+        this.setState(state, resolve) 
+    }) 
+  }
+
   render() {
       console.log(`Render lifecycle: ${JSON.stringify(this.state)}`)
     return (
